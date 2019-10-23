@@ -21,6 +21,9 @@ services:
     volumes:
       - /app/node_modules
       - ./api:/app
+    # All default passwords and ports bellow come from base empty
+    # images for this demo only. Production values are always stored
+    # encrypted and passed as environment varibales during deployment.
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
