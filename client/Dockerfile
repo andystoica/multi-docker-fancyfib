@@ -2,7 +2,7 @@
 
 # STAGE 1
 # Start from the Apline version of Node base image
-FROM node:alpine as builder
+FROM node:alpine AS builder
 
 # Copy the package.json and install all dependencies under /app
 WORKDIR /app
