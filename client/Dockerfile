@@ -11,7 +11,7 @@ RUN npm install
 
 # Copy the remaining files and initiate the build
 COPY ./ ./
-CMD ["npm", "run", "build"]
+RUN npm run build
 
 
 # STAGE 2
