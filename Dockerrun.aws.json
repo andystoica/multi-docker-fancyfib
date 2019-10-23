@@ -3,24 +3,24 @@
   "containerDefinitions": [
     {
       "name": "fancyfib-client",
-      "image": "andystoica/fancybit-client",
+      "image": "andystoica/fancyfib-client",
       "hostname": "client",
       "essential": false,
-      "memory": 256
+      "memory": 128
     },
     {
       "name": "fancyfib-api",
-      "image": "andystoica/fancybit-api",
+      "image": "andystoica/fancyfib-api",
       "hostname": "api",
       "essential": false,
-      "memory": 256
+      "memory": 128
     },
     {
       "name": "fancyfib-worker",
       "image": "andystoica/fancyfib-worker",
       "hostname": "worker",
       "essential": false,
-      "memory": 256
+      "memory": 128
     },
     {
       "name": "fancyfib-router",
@@ -34,7 +34,7 @@
         }
       ],
       "links": ["fancyfib-client", "fancyfib-api"],
-      "memory": 256
+      "memory": 128
     }
   ]
 }
