@@ -1,0 +1,36 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "fancyfib-client",
+      "image": "andystoica/fancybit-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "fancyfib-api",
+      "image": "andystoica/fancybit-api",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "fancyfib-worker",
+      "image": "andystoica/fancyfib-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "fancyfib-router",
+      "image": "andystoica/fancyfib-router",
+      "hostname": "router",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["fancyfib-client", "fancyfib-api"]
+    }
+  ]
+}
