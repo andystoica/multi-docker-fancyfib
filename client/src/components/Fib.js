@@ -55,13 +55,22 @@ class Fib extends Component {
     return entries;
   }
 
+  refreshValues(event) {
+    event.preventDefault();
+    this.fetchValues();
+    this.renderValues();
+  }
+
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <div className="ui action input">
             <input value={this.state.index} onChange={(event) => this.setState({ index: event.target.value })} />
-            <button className="ui button">Submit a number</button>
+            <button className="ui primary button">Submit a number</button>
+            <button className="ui secondary button" onClick={(event) => this.refreshValues(event)}>
+              Refresh
+            </button>
           </div>
         </form>
 
