@@ -27,10 +27,10 @@ deploy:
   ### Deploy to AWS
   provider: elasticbeanstalk
   region: eu-west-2
-  app: fancy-fib-app
-  env: FancyFibApp-env
+  app: FancyFibApp
+  env: FancyFibAppEnvironment
   bucket_name: elasticbeanstalk-eu-west-2-914467317987
-  bucket_path: fancy-fib-app
+  bucket_path: FancyFibApp
   on:
     branch: master
   access_key_id:
