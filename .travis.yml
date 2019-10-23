@@ -2,24 +2,23 @@ sudo: required
 services:
   - docker
 
-# before_install:
-### Prepare test images to run application tests
-# - docker build -t andystoica/fancyfib-client-test -f ./client/Dockerfile.dev ./client
+before_install:
+  ### Prepare test images to run application tests
+  - docker build -t andystoica/fancyfib-client-test -f ./client/Dockerfile.dev ./client
 
 script:
-  ## Run tests for the client application
-  # - docker run -e CI=true andystoica/fancyfib-client-test npm test
-  - echo "All good"
+  ### Run tests for the client application
+  - docker run -e CI=true andystoica/fancyfib-client-test npm test
 
 after_success:
   ### Build application containers
   - docker build -t andystoica/fancyfib-client ./client
-  # - docker build -t andystoica/fancyfib-api ./api
-  # - docker build -t andystoica/fancyfib-worker ./worker
-  # - docker build -t andystoica/fancyfib-router ./router
+  - docker build -t andystoica/fancyfib-api ./api
+  - docker build -t andystoica/fancyfib-worker ./worker
+  - docker build -t andystoica/fancyfib-router ./router
   ### Push containers to Docker Hub
-  # - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # - docker push andystoica/fancyfib-client
-  # - docker push andystoica/fancyfib-api
-  # - docker push andystoica/fancyfib-worker
-  # - docker push andystoica/fancyfib-router
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push andystoica/fancyfib-client
+  - docker push andystoica/fancyfib-api
+  - docker push andystoica/fancyfib-worker
+  - docker push andystoica/fancyfib-router
