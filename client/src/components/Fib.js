@@ -3,84 +3,83 @@ import axios from 'axios';
 
 class Fib extends Component {
   state = {
-    seenIndexes: [],
-    values: {},
-    index: ''
+    submittted: [],
+    computed: {},
+    input: ''
   };
 
   componentDidMount() {
-    this.fetchValues();
-    this.fetchIndexes();
+    this.fetchComputed();
+    this.fetchSubmited();
   }
 
-  async fetchValues() {
-    const values = await axios.get('/api/values/current');
-    this.setState({ values: values.data });
-  }
-
-  async fetchIndexes() {
-    const seenIndexes = await axios.get('/api/values/all');
-    if (Array.isArray(seenIndexes.data)) {
-      this.setState({
-        seenIndexes: seenIndexes.data
-      });
+  async fetchComputed() {
+    const res = await axios.get('/api/values/current');
+    if (res.status === 200) {
+      this.setState({ computed: res.data });
     }
+  }
+
+  async fetchSubmited() {
+    const res = await axios.get('/api/values/all');
+    if (res.status === 200) {
+      this.setState({ submittted: res.data });
+    }
+  }
+
+  renderSubmitted() {
+    return this.state.submittted.map(({ number }) => number).join(', ');
+  }
+
+  renderComputed() {
+    const entries = [];
+
+    for (let key in this.state.computed) {
+      entries.push(
+        <div key={key}>
+          {key} &rarr; {this.state.computed[key]}
+        </div>
+      );
+    }
+    return entries;
+  }
+
+  refreshComputed(event) {
+    event.preventDefault();
+    this.fetchComputed();
+    this.renderComputed();
   }
 
   handleSubmit = async (event) => {
     event.preventDefault();
 
     await axios.post('/api/values', {
-      index: this.state.index
+      index: this.state.input
     });
 
-    this.setState({ index: '' });
-    this.fetchValues();
-    this.fetchIndexes();
+    this.setState({ input: '' });
+    this.fetchComputed();
+    this.fetchSubmited();
   };
-
-  renderSeenIndexes() {
-    return this.state.seenIndexes.map(({ number }) => number).join(', ');
-  }
-
-  renderValues() {
-    const entries = [];
-
-    for (let key in this.state.values) {
-      entries.push(
-        <div key={key}>
-          For number {key}, the value is: {this.state.values[key]}
-        </div>
-      );
-    }
-
-    return entries;
-  }
-
-  refreshValues(event) {
-    event.preventDefault();
-    this.fetchValues();
-    this.renderValues();
-  }
 
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <div className="ui action input">
-            <input value={this.state.index} onChange={(event) => this.setState({ index: event.target.value })} />
+            <input value={this.state.input} onChange={(event) => this.setState({ input: event.target.value })} />
             <button className="ui primary button">Submit a number</button>
-            <button className="ui secondary button" onClick={(event) => this.refreshValues(event)}>
+            <button className="ui secondary button" onClick={(event) => this.refreshComputed(event)}>
               Refresh
             </button>
           </div>
         </form>
 
         <h3 className="ui header">Numbers submitted</h3>
-        <div className="ui message">{this.renderSeenIndexes()}</div>
+        <div className="ui message">{this.renderSubmitted()}</div>
 
         <h3 className="ui header">Computed values</h3>
-        <div className="ui message">{this.renderValues()}</div>
+        <div className="ui message">{this.renderComputed()}</div>
       </div>
     );
   }

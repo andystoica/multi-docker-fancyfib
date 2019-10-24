@@ -16,7 +16,7 @@ class App extends Component {
               About
             </Link>
           </div>
-          <div class="ui divider"></div>
+          <div className="ui divider"></div>
           <h1 className="ui icon header" id="title">
             <i className="settings icon"></i>
             <div className="contents">Fancy Fibonacci App</div>
