@@ -23,17 +23,17 @@ after_success:
   - docker push andystoica/fancyfib-worker
   - docker push andystoica/fancyfib-router
 
-deploy:
-  ### Deploy to AWS
-  provider: elasticbeanstalk
-  region: eu-west-2
-  app: FancyFibApp
-  env: FancyFibAppEnvironment
-  bucket_name: elasticbeanstalk-eu-west-2-914467317987
-  bucket_path: FancyFibApp
-  on:
-    branch: master
-  access_key_id:
-    secure: $AWS_ACCESS_KEY_ID
-  secret_access_key:
-    secure: $AWS_SECRET_ACCESS_KEY
+# deploy:
+#   ### Deploy to AWS
+#   provider: elasticbeanstalk
+#   region: eu-west-2
+#   app: FancyFibApp
+#   env: FancyFibAppEnvironment
+#   bucket_name: elasticbeanstalk-eu-west-2-914467317987
+#   bucket_path: FancyFibApp
+#   on:
+#     branch: master
+#   access_key_id:
+#     secure: $AWS_ACCESS_KEY_ID
+#   secret_access_key:
+#     secure: $AWS_SECRET_ACCESS_KEY

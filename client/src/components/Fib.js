@@ -15,14 +15,16 @@ class Fib extends Component {
 
   async fetchComputed() {
     const res = await axios.get('/api/values/current');
-    if (res.status === 200) {
+    console.log('Redis: ', res);
+    if (res.status === 200 && typeof res.data === 'object') {
       this.setState({ computed: res.data });
     }
   }
 
   async fetchSubmited() {
     const res = await axios.get('/api/values/all');
-    if (res.status === 200) {
+    console.log('Postgres: ', res);
+    if (res.status === 200 && typeof res.data === 'object') {
       this.setState({ submittted: res.data });
     }
   }
